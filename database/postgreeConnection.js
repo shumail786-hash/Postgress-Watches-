@@ -3,10 +3,17 @@ import { userModel } from "../model/user.js";
 import { productModel } from "../model/product.js";
 import { testimonialModel } from "../model/testimonial.js";
 export const db = async () => {
-  const sequelize = new Sequelize("test", "postgres", "123", {
-    host: "localhost",
+  const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: "postgres",
+    protocol: "postgres",
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true, // Required if the PostgreSQL server uses SSL
+    //     rejectUnauthorized: false,
+    //   },
+    // },
   });
+
   let User = null;
   let Product = null;
   let Testimonial = null;

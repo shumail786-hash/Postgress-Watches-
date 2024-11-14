@@ -138,6 +138,10 @@ dist
 
 # Optional stylelint cache
 
+.env
+.env.test
+.env.production
+
 # SvelteKit build / generate output
 .svelte-kit
 
