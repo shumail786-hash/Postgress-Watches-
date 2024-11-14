@@ -27,7 +27,15 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server is listening on ${PORT}`);
-  db();
+
+  const { sequelize, User, Product, Testimonial } = await db();
+
+  if (!sequelize || !User || !Product || !Testimonial) {
+    console.error("Failed to initialize the database models.");
+    process.exit(1); // Exit the app with failure status
+  }
+
+  console.log("Database connected successfully, starting the server...");
 });

@@ -9,9 +9,10 @@ export const db = async () => {
     dialectModule: pg,
     dialect: "postgres",
     protocol: "postgres",
+    // Uncomment this if your database requires SSL
     // dialectOptions: {
     //   ssl: {
-    //     require: true, // Required if the PostgreSQL server uses SSL
+    //     require: true,
     //     rejectUnauthorized: false,
     //   },
     // },
@@ -23,13 +24,18 @@ export const db = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully");
+
     User = await userModel(sequelize);
     Product = await productModel(sequelize);
     Testimonial = await testimonialModel(sequelize);
+
     await sequelize.sync();
     console.log("Table Created Successfully");
+
     return { sequelize, User, Product, Testimonial };
   } catch (error) {
     console.log("Unable to connect to database", error);
+    // Return a fallback value in case of an error
+    return { sequelize: null, User: null, Product: null, Testimonial: null };
   }
 };
