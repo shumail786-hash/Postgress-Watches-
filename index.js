@@ -9,9 +9,24 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-const PORT = 4000;
 
 router(app);
+const PORT = process.env.PORT;
+
+app.get("/", async (req, res) => {
+  try {
+    res.json({
+      statusCode: 201,
+      message: "Server is listening on PORT",
+    });
+  } catch (error) {
+    res.json({
+      statusCode: 404,
+      message: "Can not get",
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
   db();
