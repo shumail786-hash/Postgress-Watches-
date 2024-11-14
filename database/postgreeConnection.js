@@ -2,8 +2,11 @@ import { Sequelize } from "sequelize";
 import { userModel } from "../model/user.js";
 import { productModel } from "../model/product.js";
 import { testimonialModel } from "../model/testimonial.js";
+import pg from "pg";
+
 export const db = async () => {
   const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialectModule: pg,
     dialect: "postgres",
     protocol: "postgres",
     // dialectOptions: {
